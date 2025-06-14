@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter If You Dare 👁️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: black url('https://images.unsplash.com/photo-1573065160334-9f54788447b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+      font-family: 'Creepster', cursive;
+      color: red;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 4em;
+      text-shadow: 0 0 15px red;
+    }
+
+    input[type="password"] {
+      padding: 15px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      background: #111;
+      color: red;
+      box-shadow: 0 0 10px red;
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 1em;
+      background: darkred;
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px red;
+    }
+
+    .error {
+      margin-top: 20px;
+      color: #ff0000;
+      font-size: 1.2em;
+    }
+
+    .glitch {
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px -2px lime; }
+      50% { text-shadow: 2px -2px blue; }
+      75% { text-shadow: -2px 2px magenta; }
+      100% { text-shadow: 2px 2px red; }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="glitch">Enter the Password</h1>
+  <input type="password" id="password" placeholder="🔐 Type password...">
+  <br>
+  <button onclick="checkPassword()">Unlock</button>
+  <div class="error" id="errorMsg"></div>
+
+  <script>
+    const correctPassword = "loveispass"; // Change this
+
+    function checkPassword() {
+      const entered = document.getElementById("password").value;
+      if (entered === correctPassword) {
+        window.location.href = "web.html";
+      } else {
+        document.getElementById("errorMsg").innerText = "❌ Wrong password. Try again... if you dare.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Love Quiz 💘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to top right, #ffe0f0, #f7f2ff);
+      font-family: 'Baloo 2', cursive;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #a03363;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .quiz-container {
+      background: #fff0f7;
+      border-radius: 20px;
+      padding: 30px 40px;
+      max-width: 480px;
+      box-shadow: 0 4px 15px rgba(209, 79, 138, 0.3);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      user-select: none;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.4em;
+      color: #d94f8a;
+    }
+
+    .question {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+
+    .answers {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    .answers li {
+      margin-bottom: 12px;
+    }
+
+    label {
+      background: #ffc1dc;
+      padding: 12px 18px;
+      border-radius: 25px;
+      display: block;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 600;
+      user-select: none;
+      color: #a03363;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[type="radio"]:checked + label {
+      background: #ff88b3;
+      color: #4a1f2e;
+      font-weight: 700;
+      box-shadow: 0 0 8px rgba(74, 31, 46, 0.6);
+    }
+
+    button {
+      background: #d94f8a;
+      color: white;
+      font-size: 1.1em;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(217, 79, 138, 0.6);
+      transition: background 0.3s;
+      user-select: none;
+      margin-top: 10px;
+    }
+
+    button:hover:not(:disabled) {
+      background: #b4396d;
+    }
+
+    button:disabled {
+      background: #f1a9c3;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .score-container {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin-top: 20px;
+      color: #d94f8a;
+      text-align: center;
+      max-width: 480px;
+      background: #fff0f7;
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 15px rgba(209, 79, 138, 0.3);
+      display: none;
+      position: relative;
+      z-index: 10;
+      user-select: none;
+    }
+
+    #hearts-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 5;
+    }
+
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ff4d85;
+      transform: rotate(-45deg);
+      animation: floatUp 4s linear forwards;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 5px #ff4d85);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ff4d85;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -15px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 15px;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(-45deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-250px) rotate(-45deg) scale(1.5);
+      }
+    }
+
+    .big-heart {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: #ff4d85;
+      transform: rotate(-45deg);
+      border-radius: 8px 8px 0 0;
+      filter: drop-shadow(0 0 8px #ff4d85);
+      animation: popScale 0.4s ease forwards;
+      z-index: 50;
+    }
+
+    .big-heart::before,
+    .big-heart::after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: #ff4d85;
+      border-radius: 50%;
+    }
+
+    .big-heart::before {
+      top: -40px;
+      left: 0;
+    }
+
+    .big-heart::after {
+      top: 0;
+      left: 40px;
+    }
+
+    @keyframes popScale {
+      0% {
+        transform: rotate(-45deg) scale(0);
+        opacity: 1;
+      }
+      50% {
+        transform: rotate(-45deg) scale(1.3);
+        opacity: 1;
+      }
+      100% {
+        transform: rotate(-45deg) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .burst-heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4d85;
+      transform: rotate(-45deg);
+      border-radius: 4px 4px 0 0;
+      filter: drop-shadow(0 0 4px #ff4d85);
+      opacity: 1;
+      animation: burstMove 0.8s ease forwards;
+      z-index: 60;
+    }
+
+    .burst-heart::before,
+    .burst-heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4d85;
+      border-radius: 50%;
+    }
+
+    .burst-heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .burst-heart::after {
+      top: 0;
+      left: 10px;
+    }
+
+    @keyframes burstMove {
+      to {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) rotate(-45deg) scale(0);
+      }
+    }
+
+    /* ✨ Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      box-shadow: 0 0 6px rgb(196, 183, 6);
+      animation: sparkleAnim 0.8s ease-out forwards;
+      z-index: 65;
+    }
+
+    @keyframes sparkleAnim {
+      0% {
+        opacity: 1;
+        transform: scale(0.5);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container" id="quizContainer">
+    <h1>Love Quiz 💘</h1>
+    <div id="quiz"></div>
+    <button id="nextBtn" disabled>Next</button>
+  </div>
+
+  <div class="score-container" id="scoreContainer"></div>
+
+  <div id="hearts-container"></div>
+
+  <script>
+    const quizData = [
+      {
+        question: "What's my favorite thing about you?",
+        answers: ["Your smile", "Your kindness", "Your laugh", "All of the above"],
+        correct: 3
+      },
+      {
+        question: "Where is my fav memeory of us?",
+        answers: ["At the mall", "College campus", "Movie theater", "At My place"],
+        correct: 3
+      },
+      {
+        question: "Which song reminds me of you?",
+        answers: ["Perfect by Ed Sheeran", "Until I Found You", "Dandelions", "You by Armaan Malik"],
+        correct: 0
+      },
+      {
+        question: "My favorite way to spend time with you is...",
+        answers: ["Playing together", "Sitting together", "Going for walks", "All of the above"],
+        correct: 3
+      },
+      {
+        question: "How do I feel when I’m with you?",
+        answers: ["Happy and complete", "Excited and nervous", "Comfortable and loved", "All feelings rolled into one"],
+        correct: 3
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const quizEl = document.getElementById('quiz');
+    const nextBtn = document.getElementById('nextBtn');
+    const scoreContainer = document.getElementById('scoreContainer');
+    const quizContainer = document.getElementById('quizContainer');
+    const heartsContainer = document.getElementById('hearts-container');
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      quizEl.innerHTML = `
+        <div class="question">${q.question}</div>
+        <ul class="answers">
+          ${q.answers.map((ans, i) => `
+            <li>
+              <input type="radio" id="ans${i}" name="answer" value="${i}">
+              <label for="ans${i}">${ans}</label>
+            </li>`).join('')}
+        </ul>
+      `;
+      nextBtn.disabled = true;
+      document.querySelectorAll('input[name="answer"]').forEach(input => {
+        input.addEventListener('change', () => {
+          nextBtn.disabled = false;
+        });
+      });
+    }
+ 
+
+    function showScore() {
+      quizEl.style.opacity = '0';
+      nextBtn.style.opacity = '0';
+      setTimeout(() => {
+        quizEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+        scoreContainer.style.display = 'block';
+        scoreContainer.innerHTML = `You scored ${score} out of ${quizData.length}!<br><br>${
+          score > quizData.length / 2 ? "You're amazing! 💖 I love you so much!" : "No worries, you're perfect to me anyway! 💕"
+        }`;
+        startHeartsAnimation();
+        document.body.addEventListener('click', bigHeartBurst);
+        setTimeout(stopHeartsAnimation, 15000);
+      }, 1000);
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) return;
+      if (parseInt(selected.value) === quizData[currentQuestion].correct) score++;
+      currentQuestion++;
+      if (currentQuestion < quizData.length) loadQuestion();
+      else showScore();
+    });
+
+    loadQuestion();
+
+    let heartsInterval;
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = (5 + Math.random() * 90) + 'vw';
+      heart.style.bottom = '-40px';
+      heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    function startHeartsAnimation() {
+      heartsInterval = setInterval(createHeart, 300);
+    }
+
+    function stopHeartsAnimation() {
+      clearInterval(heartsInterval);
+    }
+
+    function bigHeartBurst(e) {
+      if (e.target.closest('.quiz-container') || e.target.closest('.score-container')) return;
+      const x = e.clientX;
+      const y = e.clientY;
+
+      const bigHeart = document.createElement('div');
+      bigHeart.classList.add('big-heart');
+      bigHeart.style.left = (x - 40) + 'px';
+      bigHeart.style.top = (y - 40) + 'px';
+      heartsContainer.appendChild(bigHeart);
+
+      setTimeout(() => {
+        bigHeart.remove();
+        createBurstHearts(x, y);
+      }, 400);
+    }
+
+    function createBurstHearts(x, y) {
+      const count = 15;
+      for (let i = 0; i < count; i++) {
+        const burstHeart = document.createElement('div');
+        burstHeart.classList.add('burst-heart');
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 50 + Math.random() * 80;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        burstHeart.style.left = x + 'px';
+        burstHeart.style.top = y + 'px';
+        burstHeart.style.setProperty('--x', dx + 'px');
+        burstHeart.style.setProperty('--y', dy + 'px');
+        heartsContainer.appendChild(burstHeart);
+        burstHeart.addEventListener('animationend', () => burstHeart.remove());
+
+        // 🌟 Sparkle!
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+        sparkle.style.top = (y + (Math.random() - 0.5) * 100) + 'px';
+        heartsContainer.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 800);
+      }
+    }
+  </script>
+  <button onclick="goBack()" style="
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #ffd6e6;
+  color: #a03363;
+  border: none;
+  padding: 10px 18px;
+  font-size: 1em;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+">← Back</button>
+
+<script>
+  function goBack() {
+    window.location.href = "web.html"; // change to your actual main page path if different
+  }
+</script>
+</body>
+</html>

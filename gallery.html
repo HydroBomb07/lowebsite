@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Moments 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(135deg, #fff0f5, #f0f8ff);
+      overflow-x: hidden;
+      height: 200vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 3em;
+      color: #d94f8a;
+      text-shadow: 2px 2px 5px #ffdde4;
+    }
+
+    .carousel-container {
+      perspective: 2000px;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .carousel {
+      width: 600px;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .photo {
+      width: 250px;
+      height: 300px;
+      position: absolute;
+      top: 50px;
+      left: 175px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transition: transform 0.5s, filter 0.5s;
+      transform-style: preserve-3d;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 8px;
+      color: #a03363;
+      font-size: 1.1em;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    .back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #ff6fa3;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+  font-family: 'Baloo 2', cursive;
+}
+
+.back-button:hover {
+  background-color: #ff92b8;
+}
+/* Floating love quotes */
+.love-quotes {
+  position: fixed;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3em;
+  color: #d94f8a;
+  opacity: 0.6;
+  animation: floatText 10s infinite linear;
+  font-family: 'Baloo 2', cursive;
+}
+
+@keyframes floatText {
+  0% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-20px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.6; }
+}
+
+/* Sparkle hover on photos */
+.photo:hover {
+  box-shadow: 0 0 15px 5px #ffaad4;
+  transform: scale(1.05) rotateY(var(--angle));
+}
+
+/* Heart pulse for header */
+header {
+  animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* Vary heart sizes and speeds */
+.heart {
+  width: 16px;
+  height: 16px;
+  background: #ffb6c1;
+  animation: float calc(8s + 4s * random()) linear infinite;
+}
+
+.heart::before, .heart::after {
+  background: #ffb6c1;
+}
+
+  </style>
+</head>
+<body>
+ <a href="web.html" class="back-button">← Back</a>
+
+
+<header>Our Moments Together 💞</header>
+
+<div class="hearts">
+  <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="heart" style="left: 25%; animation-delay: 2s;"></div>
+  <div class="heart" style="left: 40%; animation-delay: 4s;"></div>
+  <div class="heart" style="left: 55%; animation-delay: 1s;"></div>
+  <div class="heart" style="left: 70%; animation-delay: 3s;"></div>
+  <div class="heart" style="left: 85%; animation-delay: 5s;"></div>
+</div>
+
+<div class="carousel-container">
+  <div class="carousel" id="carousel">
+    <div class="photo"><img src="imgwebfirst.jpg"><div class="caption">Our First photo 💖</div></div>
+    <div class="photo"><img src="imgwebtrad.jpg"><div class="caption">That Traditional day 🌸</div></div>
+    <div class="photo"><img src="imgweblaugh.jpg"><div class="caption">Random Laughs 😄</div></div>
+    <div class="photo"><img src="ingwebmall.jpg"><div class="caption">Mall Memories ☕</div></div>
+    <div class="photo"><img src="imgwebsunset.jpg"><div class="caption">That sunset 🌅</div></div>
+    <div class="photo"><img src="imgweb_r&b.jpg"><div class="caption">Red & Black🖤❤️</div></div>
+    <div class="photo"><img src="imgwebmirror.jpg"><div class="caption">Cute Mirror selfies 😘</div></div>
+    <div class="photo"><img src="imgwebblack.jpg"><div class="caption">Tuning Spark ✨</div></div>
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById('carousel');
+  const photos = carousel.querySelectorAll('.photo');
+  const total = photos.length;
+  const angleStep = 360 / total;
+  let currentRotation = 0;
+  let autoRotate = true;
+  let isDragging = false;
+  let startX = 0;
+
+  // Position each photo in a circle
+  function positionPhotos() {
+    photos.forEach((photo, i) => {
+      const angle = angleStep * i;
+      photo.style.transform = `rotateY(${angle}deg) translateZ(500px)`;
+    });
+  }
+
+  // Update blur and scale based on rotation
+  function updatePhotos() {
+  const centerAngle = (360 - currentRotation % 360) % 360;
+  photos.forEach((photo, i) => {
+    const photoAngle = (angleStep * i) % 360;
+    let angleDiff = Math.abs(centerAngle - photoAngle);
+    if (angleDiff > 180) angleDiff = 360 - angleDiff; // fix wrap-around
+
+    const blur = Math.min(angleDiff / 30, 2);  // adjust for sharp transition
+    const scale = 1 - (Math.min(angleDiff / 180, 1) * 0.3);  // scale down in depth
+
+    photo.style.filter = `blur(${blur}px)`;
+    photo.style.transform = `rotateY(${angleStep * i}deg) translateZ(500px) scale(${scale})`;
+  });
+
+  carousel.style.transform = `rotateY(${currentRotation}deg)`;
+}
+
+
+  // Auto-rotation
+  function animate() {
+    if (autoRotate && !isDragging) {
+      currentRotation += 0.2;
+      updatePhotos();
+    }
+    requestAnimationFrame(animate);
+  }
+
+  // Initial setup
+  positionPhotos();
+  updatePhotos();
+  animate();
+</script>
+<div class="love-quotes">You + Me = LOVE 💘</div>
+</body>
+</html>
